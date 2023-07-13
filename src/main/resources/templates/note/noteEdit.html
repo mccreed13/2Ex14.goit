@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+    <form method="post" action="/note/edit">
+        <span><input hidden th:name="id" th:value="${note.id}"></span>
+        <span><input type="text" th:value="${note.title}" th:name="title"></span>
+        <span><input type="text" th:value="${note.content}" th:name="content"></span>
+        <span><input type="submit" value="Save edit"></span>
+        <span><a href="/note/list">Back</a></span>
+    </form>
+</body>
+</html>
