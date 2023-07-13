@@ -5,6 +5,8 @@ import com.example.ex14.exception.NoteNotFoundException;
 import com.example.ex14.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,7 @@ public class NoteService {
         if(note.getId() == null){
             throw new NoteNotFoundException("ID required");
         }
-        Note note2 = getById(note.getId());
+        Note note2 = noteRepository.getById(note.getId());
         if(note2 == null){
             throw new NoteNotFoundException("note not found");
         }
@@ -46,15 +48,8 @@ public class NoteService {
     }
 
     public Note getById(Long id){
-       String query = "select c.id, c.title, c.content from note c where id=:id";
-       return jdbcTemplate.queryForObject(query,
-               Map.of("id", id),
-               (resultSet, index) ->{
-                return Note.of(
-                        resultSet.getLong("id"),
-                        resultSet.getString("title"),
-                        resultSet.getString("content")
-                );
-               });
+        return noteRepository.getById(id);
     }
+
+
 }

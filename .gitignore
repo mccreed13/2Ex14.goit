@@ -1,5 +1,6 @@
 HELP.md
 .gradle
+/.root3/
 /.idea/
 .resources/db/migration/V2__populate.sql
 build/
